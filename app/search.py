@@ -22,5 +22,5 @@ count = int(sys.argv[2])
 
 print (term, count)
 
-urls = search_my_term(term,count)
+urls = search_my_term(term, count)
 open_browser(urls)
