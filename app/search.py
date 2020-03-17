@@ -18,8 +18,7 @@ def search_my_term(term, count):
 
 
 term = sys.argv[1]
-count = sys.argv[2]
-count=int(count)
+count = int(sys.argv[2])
 
 print (term, count)
 
