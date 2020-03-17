@@ -23,5 +23,5 @@ count=int(count)
 
 print (term, count)
 
-urls = search_my_term(term)
+urls = search_my_term(term,count)
 open_browser(urls)
