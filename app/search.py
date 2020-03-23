@@ -7,6 +7,7 @@
 
 import webbrowser
 import sys
+import tldextract
 from googlesearch import search
 
 def open_browser(urls):
@@ -23,13 +24,9 @@ def ignore():
 def required(urls, ignore_list):
     url_req = []
     for url in urls:
-        flag = 0
-        for domain in ignore_list:
-            if url.find(domain) != -1:
-                flag = 1
-                break
-        if flag == 0:
-            url_req.append(url)
+        domain = tldextract.extract(url)
+        if domain.domain not in ignore_list:
+            url_req.append(url)    
     return url_req
 
 term = sys.argv[1]
