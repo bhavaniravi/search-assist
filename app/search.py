@@ -11,7 +11,7 @@ from googlesearch import search
 
 def open_browser(urls):
     for url in urls:
-        webbrowser.get(using='google-chrome').open(url)
+        webbrowser.open_new_tab(url)
 
 def search_my_term(term, start, count):
     return [url for url in search(term, start=start, stop=count)]
@@ -43,12 +43,10 @@ ignore_list = ignore()
 
 urls = search_my_term(term, 0, count)
 url_list = required(urls, ignore_list)
-for url in url_list:
-    final.append(url)    
+final.extend(url_list)    
 while len(final) != count:
     urls = search_my_term(term, len(url_list)+2, count-len(url_list))
     url_list = required(urls, ignore_list)
-    for url in url_list:
-        final.append(url)
+    final.extend(url_list)
         
 open_browser(final)
