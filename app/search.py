@@ -6,54 +6,49 @@
 """
 
 import webbrowser
-from googlesearch import search
 import sys
-import os
+from googlesearch import search
 
 def open_browser(urls):
     for url in urls:
-        webbrowser.open_new_tab(url)
+        webbrowser.get(using='google-chrome').open(url)
 
-def search_my_term(term,s, count):
-    return [url for url in search(term, start=s,stop=count)]
+def search_my_term(term, start, count):
+    return [url for url in search(term, start=start, stop=count)]
 
 def ignore():
     with open("data/ignore.txt") as f:
         return f.read().splitlines()
-    
-def required(urls,ignore_list):
-    url_req=[]
+
+def required(urls, ignore_list):
+    url_req = []
     for url in urls:
-        flag=0
+        flag = 0
         for domain in ignore_list:
-            if(url.find(domain)!=-1):
-                flag=1
+            if url.find(domain) != -1:
+                flag = 1
                 break
-        if(flag==0):
+        if flag == 0:
             url_req.append(url)
     return url_req
 
 term = sys.argv[1]
 count = int(sys.argv[2])
 
-print (term, count)
+print(term, count)
 
-urls=[]
-url_list=[]
-final=[]
-ignore_list=ignore()
+final = []
+ignore_list = ignore()
 
-urls = search_my_term(term,0,count)
-url_list=required(urls,ignore_list)
+
+urls = search_my_term(term, 0, count)
+url_list = required(urls, ignore_list)
 for url in url_list:
     final.append(url)    
-while(len(final)!=count):
-    urls = search_my_term(term,len(url_list)+2,count-len(url_list))
-    url_list = required(urls,ignore_list)
+while len(final) != count:
+    urls = search_my_term(term, len(url_list)+2, count-len(url_list))
+    url_list = required(urls, ignore_list)
     for url in url_list:
         final.append(url)
-    
-
-
+        
 open_browser(final)
-os.system("google-chrome")
