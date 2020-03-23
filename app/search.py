@@ -8,6 +8,7 @@
 import webbrowser
 from googlesearch import search
 import sys
+import os
 
 def open_browser(urls):
     for url in urls:
@@ -24,3 +25,5 @@ print (term, count)
 
 urls = search_my_term(term, count)
 open_browser(urls)
+
+os.system("google-chrome")
