@@ -8,6 +8,7 @@
 import webbrowser
 import sys
 import tldextract
+import pathlib
 from googlesearch import search
 
 def open_browser(urls):
@@ -18,8 +19,11 @@ def search_my_term(term, start, count):
     return [url for url in search(term, start=start, stop=count)]
 
 def ignore():
-    with open("data/ignore.txt") as f:
-        return f.read().splitlines()
+    if pathlib.Path("data/ignore.txt").exists():
+        with open("data/ignore.txt") as f:
+            return f.read().splitlines()
+    else:
+        return []
 
 def required(urls, ignore_list):
     url_req = []
